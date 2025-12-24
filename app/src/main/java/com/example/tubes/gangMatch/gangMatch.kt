@@ -34,7 +34,7 @@ import com.example.tubes.navigation.mainNav
 fun gangMatch(navController: NavController){
     val navControllerGangMatch = rememberNavController()
     var jumlahOrang: Int = 0
-    var namaTempat: String = "Nama_Tempat"
+    var namaTempat: String = "Arah Coffee"
     val broadcast = listOf<broadcast>(
         broadcast("Gaming", R.drawable.defaultprofile, "Alexander", "Kurang 2 mobile Legend", 3),
         broadcast("Study", R.drawable.defaultprofile, "Brain", "Anak IT ayo kumpul", 5),

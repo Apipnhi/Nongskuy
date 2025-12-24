@@ -11,7 +11,7 @@ import com.example.tubes.loginRegister.register
 import com.example.tubes.profile.editProfile
 import com.example.tubes.profile.profile
 import com.example.tubes.profile.settingsActivity
-import com.example.tubes.sore.papKops
+import com.example.tubes.papkops.papKops
 import com.example.tubes.sore.sore
 
 @Composable

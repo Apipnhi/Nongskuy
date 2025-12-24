@@ -2,6 +2,7 @@ package com.example.tubes.navigation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddBox
 import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.Home
@@ -34,7 +36,9 @@ fun mainNav(navController: NavController){
         modifier = Modifier
             .fillMaxWidth()
             .background(asset.mainColor)
-            .padding(WindowInsets.navigationBars.asPaddingValues()),
+            .padding(WindowInsets.navigationBars.asPaddingValues())
+            .padding(horizontal = 10.dp)
+        ,
 
         verticalAlignment = Alignment.Top
     ){
@@ -92,6 +96,37 @@ fun mainNav(navController: NavController){
 
                 Icon(
                     imageVector = Icons.Default.Home,
+                    contentDescription = "",
+                    tint = asset.bTerang,
+                    modifier = Modifier
+                        .size(25.dp)
+                )
+            }
+
+        }
+
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth(),
+
+            contentAlignment = Alignment.Center
+
+        ){
+            Button(
+                onClick = {navController.navigate(Route.papKops)},
+                colors = ButtonColors(
+                    containerColor = asset.mainColor,
+                    contentColor = asset.bTerang,
+                    disabledContentColor = asset.bTerang,
+                    disabledContainerColor = asset.mainColor
+                ),
+                contentPadding = PaddingValues(0.dp)
+
+            ) {
+
+                Icon(
+                    imageVector = Icons.Default.AddBox,
                     contentDescription = "",
                     tint = asset.bTerang,
                     modifier = Modifier

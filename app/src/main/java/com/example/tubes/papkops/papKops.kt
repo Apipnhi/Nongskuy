@@ -1,4 +1,4 @@
-package com.example.tubes.sore
+package com.example.tubes.papkops
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.tubes.Route
 import com.example.tubes.asset
-import com.example.tubes.data.BroadcastCategory
 import com.example.tubes.data.MapVenueMarker
 
 @Composable

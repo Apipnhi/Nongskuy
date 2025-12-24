@@ -49,38 +49,6 @@ fun sore(navController: NavController){
                 .weight(1f),
         ){
             maps(context)
-            OutlinedButton (onClick = {
-                navController.navigate(Route.papKops)
-            },
-
-                colors = ButtonColors(
-                    containerColor = asset.bGelap,
-                    contentColor = asset.mainColor,
-
-                    disabledContentColor = asset.mainColor,
-                    disabledContainerColor = asset.bGelap
-                ),
-                contentPadding = PaddingValues(0.dp),
-                border = BorderStroke(
-                    width = 2.dp,
-                    color = asset.mainColor
-                ),
-
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
-                    .padding(horizontal = 25.dp, vertical = 25.dp)
-                    .clip(CircleShape)
-                    .size(80.dp)
-
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "",
-                    Modifier.size(50.dp)
-                )
-            }
-
-
         }
 
         Column {

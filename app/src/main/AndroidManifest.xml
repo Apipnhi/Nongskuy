@@ -2,9 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permission untuk lokasi -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
+    <!-- TAMBAHKAN INI - Permission untuk koneksi internet (WAJIB untuk Supabase) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -14,8 +19,9 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/nongskuy"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Tubes">
-
+        android:theme="@style/Theme.Tubes"
+        android:usesCleartextTraffic="true">
+        <!-- TAMBAHKAN android:usesCleartextTraffic="true" di atas -->
 
         <activity
             android:name=".MainActivity"
@@ -32,8 +38,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${GOOGLE_MAPS_API_KEY}" />
-
-
 
     </application>
 

@@ -21,15 +21,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.tubes.maps.RequestLocationPermission
-import com.example.tubes.data.User
+import com.example.tubes.data.User_Old
 import com.example.tubes.Route
 import com.example.tubes.asset
 
 @Composable
 fun login(navController: NavController){
-    val user = listOf<User>(
-        User("1", "nongs@admin", "apip", "password"),
-        User("2", "admin@admin", "admin", "admin")
+    val user = listOf<User_Old>(
+        User_Old("1", "nongs@admin", "apip", "password"),
+        User_Old("2", "admin@admin", "admin", "admin")
         )
     val username = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }

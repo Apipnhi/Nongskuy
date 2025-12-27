@@ -1,9 +1,7 @@
-package com.example.tubes.data
-
 data class Venue(
-    val userId: String,
-    val venueId: String?,
-    val isInsideVenue: Boolean,
-    val lastUpdated: Long
-
+    val id: String,
+    val name: String,
+    val latitude: Double,
+    val longitude: Double,
+    val created_at: String?
 )

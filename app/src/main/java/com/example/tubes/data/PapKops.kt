@@ -1,9 +1,7 @@
-package com.example.tubes.data
-
-data class PapKops(
+data class PapKop(
     val id: String,
-    val userId: String,
-    val venueId: String,
-    val imageUrl: String,
-    val timestamp: Long
+    val user_id: String,
+    val venue_id: String,
+    val storage_path: String,
+    val created_at: String?
 )

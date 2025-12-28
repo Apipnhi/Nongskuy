@@ -140,7 +140,7 @@ fun barAtasGangMatch(navController: NavController, jumlahOrang: Int, namaTempat:
 }
 
 @Composable
-fun barAtasSore(navController: NavController){
+fun barAtasSore() {
     Row (
         modifier = Modifier
             .fillMaxWidth()

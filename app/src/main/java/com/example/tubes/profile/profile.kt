@@ -41,7 +41,7 @@ import com.example.tubes.navigation.profileNav
 
 
 @Composable
-fun profile(navControllerMain: NavController){
+fun profile(navControllerMain: NavController,  userId: String, username: String){
     var post: Int = 0
     var places: Int = 0
     var friends: Int = 0
@@ -240,7 +240,7 @@ fun profile(navControllerMain: NavController){
                         }
                     }
 
-                    profileNav(navControllerProfile)
+                    profileNav(navControllerProfile, userId,username)
 
                         Box (
                             modifier = Modifier.fillMaxSize()){
@@ -267,7 +267,7 @@ fun profile(navControllerMain: NavController){
                                     }
                                     composable(Route.journeyProfile) {
 
-                                        maps(context) //sfdsaf
+                                        maps(context, userId, username) //sfdsaf
 
                                     }
 
@@ -292,7 +292,7 @@ fun profile(navControllerMain: NavController){
         Box (
 
         ){
-            mainNav(navControllerMain)
+            mainNav(navControllerMain, userId,username)
         }
 
 

@@ -1,9 +1,11 @@
 package com.example.tubes
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.tubes.gangMatch.gangMatch
 import com.example.tubes.gangMatch.invite
 import com.example.tubes.loginRegister.login
@@ -28,15 +30,39 @@ fun mainStart(){
                 register(navController)
             }
 
-            composable (Route.sore){
-                sore(navController)
+            composable(
+                route = Route.sore,
+                arguments = listOf(
+                    navArgument("userId") { type = NavType.StringType },
+                    navArgument("username") { type = NavType.StringType }
+                )
+            ) { backStackEntry ->
+                val userId = backStackEntry.arguments?.getString("userId")!!
+                val username = backStackEntry.arguments?.getString("username")!!
+
+                sore(navController, userId, username)
             }
 
-            composable (Route.gangMatch){
-                gangMatch(navController)
+            composable (Route.gangMatch,
+                arguments = listOf(
+                navArgument("userId") { type = NavType.StringType },
+                navArgument("username") { type = NavType.StringType }
+            )
+            ) { backStackEntry ->
+                val userId = backStackEntry.arguments?.getString("userId")!!
+                val username = backStackEntry.arguments?.getString("username")!!
+                gangMatch(navController, userId, username)
             }
-            composable (Route.mainProfile){
-                profile(navController)
+
+            composable (Route.mainProfile,
+                arguments = listOf(
+                    navArgument("userId") { type = NavType.StringType },
+                    navArgument("username") { type = NavType.StringType }
+                )
+            ) { backStackEntry ->
+                val userId = backStackEntry.arguments?.getString("userId")!!
+                val username = backStackEntry.arguments?.getString("username")!!
+                profile(navController, userId, username)
             }
             composable(Route.editProfile) {
                 editProfile(navController, userName,null,"apa saja yang penting bio")
@@ -47,8 +73,15 @@ fun mainStart(){
             composable(Route.invite) {
                 invite(navController)
             }
-            composable(Route.papKops) {
-                papKops(navController)
+            composable(Route.papKops,
+                    arguments = listOf(
+                    navArgument("userId") { type = NavType.StringType },
+                    navArgument("username") { type = NavType.StringType }
+            )
+            ) { backStackEntry ->
+                val userId = backStackEntry.arguments?.getString("userId")!!
+                val username = backStackEntry.arguments?.getString("username")!!
+                papKops(navController,userId, username)
             }
 
 

@@ -31,7 +31,7 @@ import com.example.tubes.asset
 
 
 @Composable
-fun mainNav(navController: NavController){
+fun mainNav(navController: NavController, userId: String, username: String){
     Row (
         modifier = Modifier
             .fillMaxWidth()
@@ -50,7 +50,7 @@ fun mainNav(navController: NavController){
 
         ){
             Button(
-                onClick = {navController.navigate(Route.gangMatch)},
+                onClick = {navController.navigate("gang_Match/$userId/$username")},
                 colors = ButtonColors(
                     containerColor = asset.mainColor,
                     contentColor = asset.bTerang,
@@ -85,7 +85,7 @@ fun mainNav(navController: NavController){
 
         ){
             Button(
-                onClick = {navController.navigate(Route.sore)},
+                onClick = {navController.navigate("screen_Sore/{userId}/{username}")},
                 colors = ButtonColors(
                     containerColor = asset.mainColor,
                     contentColor = asset.bTerang,
@@ -114,7 +114,7 @@ fun mainNav(navController: NavController){
 
         ){
             Button(
-                onClick = {navController.navigate(Route.papKops)},
+                onClick = {navController.navigate("screenSore/$userId/$username")},
                 colors = ButtonColors(
                     containerColor = asset.mainColor,
                     contentColor = asset.bTerang,
@@ -146,7 +146,7 @@ fun mainNav(navController: NavController){
 
         ){
             Button(
-                onClick = {navController.navigate(Route.mainProfile)},
+                onClick = {navController.navigate("mainProfile/$userId/$username")},
                 colors = ButtonColors(
                     containerColor = asset.mainColor,
                     contentColor = asset.bTerang,
@@ -173,7 +173,7 @@ fun mainNav(navController: NavController){
 }
 
 @Composable
-fun profileNav(navController: NavController){
+fun profileNav(navController: NavController, userId: String, username: String){
     Row (
         modifier = Modifier
             .fillMaxWidth()
@@ -191,7 +191,7 @@ fun profileNav(navController: NavController){
 
         ){
             Button(
-                onClick = {navController.navigate(Route.journeyProfile)},
+                onClick = {navController.navigate("journey_profile/$userId/$username")},
                 colors = ButtonColors(
                     containerColor = asset.mainColor,
                     contentColor = asset.bTerang,

@@ -21,16 +21,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.tubes.maps.RequestLocationPermission
-import com.example.tubes.data.User_Old
+
 import com.example.tubes.Route
 import com.example.tubes.asset
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 fun login(navController: NavController){
-    val user = listOf<User_Old>(
-        User_Old("1", "nongs@admin", "apip", "password"),
-        User_Old("2", "admin@admin", "admin", "admin")
-        )
+
     val username = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     val localContext = LocalContext.current
@@ -54,11 +54,21 @@ fun login(navController: NavController){
         Spacer(modifier = Modifier.padding(10.dp))
 
         Button(onClick = {
-            val verif = user.find { it.username == username.value && it.password == password.value }
-            if (verif != null){
-                navController.navigate(Route.sore)
-            }else{
-                Toast.makeText(localContext, "Username atau password salah", Toast.LENGTH_SHORT).show()
+            CoroutineScope(Dispatchers.Main).launch {
+
+                val user = loginUser(username.value, password.value)
+
+                if (user != null) {
+                    navController.navigate(
+                        "screen_Sore/${user.id}/${user.username}"
+                    )
+                } else {
+                    Toast.makeText(
+                        localContext,
+                        "Username atau password salah",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         },
             colors = ButtonColors(

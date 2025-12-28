@@ -1,5 +1,6 @@
 package com.example.tubes.papkops
 
+import Venue
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -38,11 +40,11 @@ import com.example.tubes.asset
 import com.example.tubes.data.MapVenueMarker
 
 @Composable
-fun papKops(navController: NavController){
-    var selected by remember { mutableStateOf<MapVenueMarker>(MapVenueMarker("","",0.0,0.0)) }
-    val marker = listOf<MapVenueMarker>(
-        MapVenueMarker("1", "ARAH COFFE",-7.760537,110.380928),
-        MapVenueMarker("2", "Living Option",-7.7688587,110.418410),
+fun papKops(navController: NavController, userId: String, username: String){
+    var selected by remember { mutableStateOf<Venue>(Venue("","",0.0,0.0)) }
+    val marker = listOf<Venue>(
+        Venue("1", "ARAH COFFE",-7.760537,110.380928),
+        Venue("2", "Living Option",-7.7688587,110.418410),
     )
 
     Column (
@@ -60,7 +62,7 @@ fun papKops(navController: NavController){
                 .fillMaxWidth()
                 .padding(end = 10.dp)
         ){
-            Button(onClick = {navController.navigate(Route.sore)},
+            OutlinedButton(onClick = {navController.navigate(Route.sore)},
                 colors = ButtonColors(
                     containerColor = asset.bg,
                     contentColor = asset.rGelap,

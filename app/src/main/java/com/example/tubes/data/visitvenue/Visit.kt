@@ -1,3 +1,7 @@
+
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Visit(
     val id: String,
     val user_id: String,

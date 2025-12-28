@@ -1,5 +1,6 @@
 package com.example.tubes.gangMatch
 
+import BroadcastWithUser
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,9 @@ import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -27,36 +31,23 @@ import com.example.tubes.R
 import com.example.tubes.Route
 import com.example.tubes.asset
 import com.example.tubes.navigation.barAtasGangMatch
-import com.example.tubes.data.broadcast
 import com.example.tubes.navigation.mainNav
+import getActiveBroadcastsAtMyPlace
 
 @Composable
-fun gangMatch(navController: NavController){
+fun gangMatch(navController: NavController, userId: String, username: String){
     val navControllerGangMatch = rememberNavController()
     var jumlahOrang: Int = 0
     var namaTempat: String = "Arah Coffee"
-    val broadcast = listOf<broadcast>(
-        broadcast("Gaming", R.drawable.defaultprofile, "Alexander", "Kurang 2 mobile Legend", 3),
-        broadcast("Study", R.drawable.defaultprofile, "Brain", "Anak IT ayo kumpul", 5),
-        broadcast("Card game", R.drawable.defaultprofile, "Bima", "Kurang 1 pemain nih", 3),
-        broadcast(
-            "Ngobrol",
-            R.drawable.defaultprofile,
-            "Ayub",
-            "Asik sih kayaknya bahas  sejarah",
-            20
-        ),
-        broadcast("Music", R.drawable.defaultprofile, "Darren", "Jamming santai malam ini", 4),
-        broadcast("Movie Night", R.drawable.defaultprofile, "Luna", "Ayo nobar film thriller!", 6),
-        broadcast(
-            "Coding",
-            R.drawable.defaultprofile,
-            "Sinta",
-            "Ngoding bareng, bawa laptop ya",
-            2
-        ),
-    )
+    val broadcasts = remember { mutableStateOf<List<BroadcastWithUser>>(emptyList()) }
 
+    LaunchedEffect(userId) {
+        try {
+            broadcasts.value = getActiveBroadcastsAtMyPlace(userId)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
 
 
     Column (
@@ -115,7 +106,7 @@ fun gangMatch(navController: NavController){
             NavHost(
                 navController = navControllerGangMatch, startDestination = Route.forYou, builder = {
                     composable(Route.forYou) {
-                        forYou(broadcast)
+                        forYou(broadcasts = broadcasts.value, userId = userId, username = username)
 
                     }
                     composable(Route.me) {
@@ -150,7 +141,7 @@ fun gangMatch(navController: NavController){
 
 
 
-            mainNav(navController)
+            mainNav(navController, userId, username )
 
 
     }

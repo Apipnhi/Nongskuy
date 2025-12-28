@@ -1,5 +1,6 @@
 package com.example.tubes.gangMatch
 
+import BroadcastWithUser
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -25,6 +27,9 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,11 +39,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.tubes.R
 import com.example.tubes.asset
-import com.example.tubes.data.broadcast
+import getActiveBroadcastsAtMyPlace
 
 @Composable
-fun forYou(broadcast:List<broadcast>){
+fun forYou(broadcasts: List<BroadcastWithUser>, userId: String, username: String){
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
 
     Column {
@@ -69,8 +75,7 @@ fun forYou(broadcast:List<broadcast>){
                 .fillMaxWidth()
 
         ){
-            item {
-                broadcast.forEach { broadcastList ->
+            items(broadcasts) { broadcasts ->
                     Column (
                         modifier = Modifier
                             .fillMaxWidth()
@@ -85,7 +90,7 @@ fun forYou(broadcast:List<broadcast>){
                             modifier = Modifier
                                 .padding(20.dp)
                         ){
-                            Text(text = broadcastList.tipeActivity,
+                            Text(text = broadcasts.category,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 15.sp,
                                 color = asset.mainColor,
@@ -104,7 +109,7 @@ fun forYou(broadcast:List<broadcast>){
                                 verticalAlignment = Alignment.CenterVertically
                             ){
                                 Image(
-                                    painter = painterResource(broadcastList.mainProfile),
+                                    painter = painterResource(R.drawable.defaultprofile), //PROFILE CREATOR BROADCAST
                                     contentDescription = null,
                                     modifier = Modifier
                                         .padding(
@@ -119,113 +124,113 @@ fun forYou(broadcast:List<broadcast>){
 
                                 ){
                                     Text(
-                                        text = broadcastList.namaPengguna,
+                                        text = broadcasts.users.username,
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 15.sp,
                                     )
                                     Spacer(Modifier.padding(2.dp))
-                                    Text(text = broadcastList.deskripsi,
+                                    Text(text = broadcasts.description,
                                         color = asset.rGelap,
                                     )
                                 }
                             }
-                            Spacer(Modifier.padding(5.dp))
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-
-                                broadcast.take(3).forEach {items ->
-                                    Image(
-                                        painter = painterResource(items.mainProfile),
-                                        contentDescription = null,
-                                        modifier = Modifier
-                                            .padding(
-                                                end = 2.dp
-                                            )
-                                            .size(20.dp)
-                                            .clip(CircleShape)
-                                        ,
-
-
-                                        )
-                                }
-                                if (broadcast.size > 3){
-                                    Text(text = "+${broadcast.size-3}",
-                                        color = asset.mainColor
-                                    )
-                                }
-                                Row (
-                                    horizontalArrangement = Arrangement.End,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .weight(1f)
-                                ){
-                                    Divider(
-                                        modifier = Modifier
-                                            .height(25.dp)
-                                            .width(2.dp),
-                                        thickness = 2.dp,
-                                        color = asset.mainColor)
-
-                                    Spacer(Modifier.padding(5.dp))
-                                    Button(onClick = {},
-                                        colors = ButtonColors(
-                                            containerColor = Color(0xFFFFD0D0),
-                                            contentColor = Color(0xFFFF0000),
-                                            disabledContentColor = Color(0xFFFFD0D0),
-                                            disabledContainerColor = Color(0xFFFFD0D0)
-                                        ),
-                                        contentPadding = PaddingValues(0.dp),
-
-                                        shape = RoundedCornerShape(10.dp),
-
-                                        modifier = Modifier
-                                            .size(30.dp)
-
-
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.Close,
-                                            contentDescription = "",
-                                            modifier = Modifier
-                                                .size(25.dp)
-
-
-                                        )
-                                    }
-
-                                    Spacer(Modifier.padding(5.dp))
-
-                                    Button(onClick = {},
-                                        colors = ButtonColors(
-                                            containerColor = Color(0xFFCCFFD3),
-                                            contentColor = Color(0xFF00FF22),
-                                            disabledContentColor = Color(0xFFCCFFD3),
-                                            disabledContainerColor = Color(0xFFCCFFD3)
-                                        ),
-                                        contentPadding = PaddingValues(0.dp),
-                                        shape = RoundedCornerShape(10.dp),
-                                        modifier = Modifier
-                                            .size(30.dp)
-
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.Check,
-                                            contentDescription = ""
-
-
-                                        )
-                                    }
-
-
-                                }
-
-
-                            }
+                          Spacer(Modifier.padding(5.dp))
+//                            Row(
+//                                verticalAlignment = Alignment.CenterVertically
+//                            ) {
+//
+//                                broadcast.take(3).forEach {items ->
+//                                    Image(
+//                                        painter = painterResource(R.drawable.defaultprofile),
+//                                        contentDescription = null,
+//                                        modifier = Modifier
+//                                            .padding(
+//                                                end = 2.dp
+//                                            )
+//                                            .size(20.dp)
+//                                            .clip(CircleShape)
+//                                        ,
+//
+//
+//                                        )
+//                                }
+//                                if (broadcast.size > 3){
+//                                    Text(text = "+${broadcast.size-3}",
+//                                        color = asset.mainColor
+//                                    )
+//                                }
+//                                Row (
+//                                    horizontalArrangement = Arrangement.End,
+//                                    modifier = Modifier
+//                                        .fillMaxWidth()
+//                                        .weight(1f)
+//                                ){
+//                                    Divider(
+//                                        modifier = Modifier
+//                                            .height(25.dp)
+//                                            .width(2.dp),
+//                                        thickness = 2.dp,
+//                                        color = asset.mainColor)
+//
+//                                    Spacer(Modifier.padding(5.dp))
+//                                    Button(onClick = {},
+//                                        colors = ButtonColors(
+//                                            containerColor = Color(0xFFFFD0D0),
+//                                            contentColor = Color(0xFFFF0000),
+//                                            disabledContentColor = Color(0xFFFFD0D0),
+//                                            disabledContainerColor = Color(0xFFFFD0D0)
+//                                        ),
+//                                        contentPadding = PaddingValues(0.dp),
+//
+//                                        shape = RoundedCornerShape(10.dp),
+//
+//                                        modifier = Modifier
+//                                            .size(30.dp)
+//
+//
+//                                    ) {
+//                                        Icon(
+//                                            imageVector = Icons.Default.Close,
+//                                            contentDescription = "",
+//                                            modifier = Modifier
+//                                                .size(25.dp)
+//
+//
+//                                        )
+//                                    }
+//
+//                                    Spacer(Modifier.padding(5.dp))
+//
+//                                    Button(onClick = {},
+//                                        colors = ButtonColors(
+//                                            containerColor = Color(0xFFCCFFD3),
+//                                            contentColor = Color(0xFF00FF22),
+//                                            disabledContentColor = Color(0xFFCCFFD3),
+//                                            disabledContainerColor = Color(0xFFCCFFD3)
+//                                        ),
+//                                        contentPadding = PaddingValues(0.dp),
+//                                        shape = RoundedCornerShape(10.dp),
+//                                        modifier = Modifier
+//                                            .size(30.dp)
+//
+//                                    ) {
+//                                        Icon(
+//                                            imageVector = Icons.Default.Check,
+//                                            contentDescription = ""
+//
+//
+//                                        )
+//                                    }
+//
+//
+//                                }
+//
+//
+//                            }
                         }
                     }
 
-                }
+
             }
             item { Spacer(Modifier.padding(30.dp)) }
 

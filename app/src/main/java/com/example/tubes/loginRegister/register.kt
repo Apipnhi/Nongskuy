@@ -22,6 +22,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.tubes.Route
 import com.example.tubes.asset
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @Composable
 fun register(navController: NavController){
@@ -53,15 +57,56 @@ fun register(navController: NavController){
         Button(onClick = {
 
 
-            if (userName.value.isNotEmpty()&&email.value.isNotEmpty()&&password.value.isNotEmpty()&&noTelp.value.isNotEmpty()&&gender.value.isNotEmpty()){
-                navController.navigate(Route.login)
-            }else Toast.makeText(localContext, "Lengkapi data", Toast.LENGTH_SHORT).show() },
-            colors = ButtonColors(
-                containerColor = asset.bGelap,
-                contentColor = asset.bg,
-                disabledContentColor = asset.bg,
-                disabledContainerColor = asset.bGelap
-            ),
+            if (
+                userName.value.isNotEmpty() &&
+                email.value.isNotEmpty() &&
+                password.value.isNotEmpty()
+            ) {
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val success = registerUser(
+                            username = userName.value,
+                            email = email.value,
+                            password = password.value
+                        )
+
+                        withContext(Dispatchers.Main) {
+                            if (success) {
+                                Toast.makeText(
+                                    localContext,
+                                    "Register berhasil",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                navController.navigate(Route.login)
+                            } else {
+                                Toast.makeText(
+                                    localContext,
+                                    "Username sudah digunakan",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                localContext,
+                                "Terjadi kesalahan",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+
+            } else {
+                Toast.makeText(
+                    localContext,
+                    "Lengkapi data",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        },
             modifier = Modifier
                 .fillMaxWidth()
 
